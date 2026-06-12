@@ -26,6 +26,8 @@ export const Route = createFileRoute("/")({
 function Home() {
   const { scrollYProgress } = useScroll();
   const heroY = useTransform(scrollYProgress, [0, 1], [0, -200]);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   return (
     <div className="relative">
