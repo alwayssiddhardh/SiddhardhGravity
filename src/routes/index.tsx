@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Download, Sparkles, Cpu, Code2, Rocket } from "lucide-react";
-import { Hero3D } from "@/components/hero-3d";
+import { lazy, Suspense, useEffect, useState } from "react";
+const Hero3D = lazy(() => import("@/components/hero-3d").then((m) => ({ default: m.Hero3D })));
 import { Bubbles } from "@/components/bubbles";
 import { profile, projects, skills, RESUME_URL } from "@/lib/portfolio-data";
 import avatar from "@/assets/avatar.jpg";
