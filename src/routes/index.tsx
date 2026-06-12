@@ -80,7 +80,13 @@ function Home() {
 
           <div className="relative h-[420px] md:h-[520px]">
             <div className="absolute inset-0 rounded-3xl border border-border glass overflow-hidden">
-              <Hero3D />
+              {mounted ? (
+                <Suspense fallback={<div className="h-full w-full bg-[var(--gradient-rainbow-soft)]" />}>
+                  <Hero3D />
+                </Suspense>
+              ) : (
+                <div className="h-full w-full bg-[var(--gradient-rainbow-soft)]" />
+              )}
             </div>
             <div className="absolute -inset-4 -z-10 rounded-[2rem] bg-[var(--gradient-rainbow-soft)] blur-2xl opacity-70" />
           </div>
