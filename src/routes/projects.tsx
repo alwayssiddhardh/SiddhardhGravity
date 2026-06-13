@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { motion } from "framer-motion";
-import { Calendar, ExternalLink } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Calendar, ExternalLink, Github } from "lucide-react";
+import { useRef } from "react";
 import { projects } from "@/lib/portfolio-data";
-import { Bubbles } from "@/components/bubbles";
 import ecom from "@/assets/proj-ecom.jpg";
 import hospital from "@/assets/proj-hospital.jpg";
 import examcell from "@/assets/proj-examcell.jpg";
@@ -32,86 +32,174 @@ export const Route = createFileRoute("/projects")({
 });
 
 function ProjectsPage() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: scrollRef, offset: ["start end", "end start"] });
+  const lineH = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+
   return (
     <div className="relative">
-      <Bubbles count={16} />
-      <section className="mx-auto max-w-6xl px-6 py-10">
-        <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Selected work</div>
-        <h1 className="mt-3 text-5xl md:text-7xl font-bold tracking-tight">
-          <span className="text-rainbow">Projects</span> I'm proud of.
-        </h1>
-        <p className="mt-4 text-muted-foreground max-w-2xl">
-          A mix of AI, full-stack and mobile builds — each one shipped, polished and battle-tested.
-        </p>
+      <section className="mx-auto max-w-6xl px-6 py-16">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-xs uppercase tracking-[0.3em] text-muted-foreground"
+        >
+          Selected work · 2022 — 2025
+        </motion.div>
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="mt-4 text-5xl md:text-8xl font-bold tracking-tight"
+        >
+          <span className="text-shimmer">Case studies</span>
+          <span className="block text-foreground/40 text-3xl md:text-5xl mt-2 font-medium">
+            production · AI · full-stack
+          </span>
+        </motion.h1>
+
+        <div className="mt-8 grid grid-cols-3 max-w-md gap-6">
+          <Stat label="Projects" value="12+" />
+          <Stat label="Shipped" value="100%" />
+          <Stat label="Stacks" value="6" />
+        </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 py-10 space-y-24">
-        {projects.map((p, i) => {
-          const reverse = i % 2 === 1;
-          const img = imageMap[p.title];
-          return (
-            <motion.article
-              key={p.title}
-              initial={{ opacity: 0, y: 60 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className={`grid md:grid-cols-2 gap-10 items-center ${reverse ? "md:[direction:rtl]" : ""}`}
-            >
-              <motion.div
-                initial={{ opacity: 0, x: reverse ? 80 : -80 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.9, ease: "easeOut" }}
-                className="md:[direction:ltr]"
-              >
-                <div className="relative group">
-                  <div className="absolute -inset-3 rounded-3xl bg-[var(--gradient-rainbow-soft)] blur-2xl opacity-70 group-hover:opacity-100 transition" />
-                  <div className="relative rounded-3xl overflow-hidden border-rainbow shadow-[var(--shadow-glow)]">
-                    <img
-                      src={img}
-                      alt={p.title}
-                      width={1024}
-                      height={1024}
-                      loading="lazy"
-                      className="w-full h-[340px] md:h-[420px] object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                  </div>
-                </div>
-              </motion.div>
+      <section ref={scrollRef} className="relative mx-auto max-w-6xl px-6 py-10">
+        {/* Vertical progress rail */}
+        <div className="hidden md:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-px bg-border">
+          <motion.div
+            style={{ height: lineH }}
+            className="w-full bg-[var(--gradient-rainbow)] origin-top"
+          />
+        </div>
 
-              <motion.div
-                initial={{ opacity: 0, x: reverse ? -80 : 80 }}
-                whileInView={{ opacity: 1, x: 0 }}
+        <div className="space-y-32 md:space-y-44">
+          {projects.map((p, i) => {
+            const reverse = i % 2 === 1;
+            const img = imageMap[p.title];
+            return (
+              <motion.article
+                key={p.title}
+                initial={{ opacity: 0, y: 80 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.9, ease: "easeOut", delay: 0.05 }}
-                className="md:[direction:ltr]"
+                transition={{ duration: 0.8, ease: [0.2, 0.8, 0.2, 1] }}
+                className={`relative grid md:grid-cols-2 gap-10 md:gap-16 items-center ${reverse ? "md:[direction:rtl]" : ""}`}
               >
-                <div className="inline-flex items-center gap-2 text-xs text-muted-foreground">
-                  <Calendar className="h-3.5 w-3.5" /> {p.date}
+                {/* Numbered milestone */}
+                <div className="hidden md:grid absolute left-1/2 -translate-x-1/2 -top-6 h-12 w-12 place-items-center rounded-full bg-background border-rainbow text-sm font-bold tracking-wider z-10">
+                  {String(i + 1).padStart(2, "0")}
                 </div>
-                <h2 className="mt-2 text-3xl md:text-4xl font-bold tracking-tight">
-                  {p.title}
-                </h2>
-                <p className="mt-3 text-muted-foreground leading-relaxed">{p.description}</p>
-                <div className="mt-5">
-                  <div className="text-xs uppercase tracking-widest text-muted-foreground">Tech used</div>
-                  <div className="mt-2 flex flex-wrap gap-2">
-                    {p.tech.map((t) => (
-                      <span key={t} className="text-xs rounded-full border-rainbow px-3 py-1">{t}</span>
-                    ))}
+
+                <motion.div
+                  initial={{ opacity: 0, x: reverse ? 80 : -80, rotate: reverse ? 2 : -2 }}
+                  whileInView={{ opacity: 1, x: 0, rotate: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.9, ease: "easeOut" }}
+                  className="md:[direction:ltr] group"
+                >
+                  <div className="relative">
+                    <div className="absolute -inset-4 rounded-3xl bg-[var(--gradient-rainbow-soft)] blur-3xl opacity-40 group-hover:opacity-80 transition duration-700" />
+                    <div className="relative rounded-3xl overflow-hidden border border-border bg-card shadow-2xl">
+                      <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-border bg-background/40">
+                        <span className="h-2.5 w-2.5 rounded-full bg-[var(--rainbow-1)]" />
+                        <span className="h-2.5 w-2.5 rounded-full bg-[var(--rainbow-3)]" />
+                        <span className="h-2.5 w-2.5 rounded-full bg-[var(--rainbow-4)]" />
+                        <span className="ml-3 text-[10px] uppercase tracking-widest text-muted-foreground truncate">
+                          {p.title.toLowerCase().replace(/\s+/g, "-")}.app
+                        </span>
+                      </div>
+                      <motion.img
+                        src={img}
+                        alt={p.title}
+                        width={1024}
+                        height={640}
+                        loading="lazy"
+                        whileHover={{ scale: 1.06 }}
+                        transition={{ duration: 0.8 }}
+                        className="w-full h-[300px] md:h-[400px] object-cover"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="mt-6 flex gap-3">
-                  <a href="https://github.com/siddhardhaungarala" target="_blank" rel="noreferrer" className="btn-ghost-rainbow text-sm">
-                    View on GitHub <ExternalLink className="h-4 w-4" />
-                  </a>
-                </div>
-              </motion.div>
-            </motion.article>
-          );
-        })}
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, x: reverse ? -80 : 80 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.9, ease: "easeOut", delay: 0.1 }}
+                  className="md:[direction:ltr]"
+                >
+                  <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground">
+                    <Calendar className="h-3.5 w-3.5" /> {p.date} · Case Study #{String(i + 1).padStart(2, "0")}
+                  </div>
+                  <h2 className="mt-3 text-3xl md:text-5xl font-bold tracking-tight leading-[1.05]">
+                    {p.title}
+                  </h2>
+                  <p className="mt-4 text-muted-foreground leading-relaxed text-base md:text-lg">
+                    {p.description}
+                  </p>
+
+                  <div className="mt-6">
+                    <div className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">Tech stack</div>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {p.tech.map((t, ti) => (
+                        <motion.span
+                          key={t}
+                          initial={{ opacity: 0, y: 8 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: ti * 0.04 }}
+                          whileHover={{ y: -3, scale: 1.06 }}
+                          className="text-xs rounded-md border border-border bg-secondary px-2.5 py-1 font-mono"
+                        >
+                          {t}
+                        </motion.span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mt-7 flex gap-3 flex-wrap">
+                    <a
+                      href="https://github.com/siddhardhaungarala"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="btn-rainbow text-sm group"
+                    >
+                      <Github className="h-4 w-4" /> View code
+                      <ExternalLink className="h-3.5 w-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    </a>
+                    <a
+                      href="https://github.com/siddhardhaungarala"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="btn-ghost-rainbow text-sm"
+                    >
+                      Live demo
+                    </a>
+                  </div>
+                </motion.div>
+              </motion.article>
+            );
+          })}
+        </div>
       </section>
     </div>
   );
 }
+
+function Stat({ label, value }: { label: string; value: string }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: 0.3 }}
+    >
+      <div className="text-3xl md:text-4xl font-bold text-rainbow">{value}</div>
+      <div className="text-xs uppercase tracking-widest text-muted-foreground mt-1">{label}</div>
+    </motion.div>
+  );
+}
+
