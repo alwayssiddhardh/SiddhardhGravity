@@ -39,37 +39,38 @@
 :root {
   --radius: 0.75rem;
 
-  /* Rainbow palette per user spec */
+  /* Rainbow palette per user spec — used as ACCENTS only */
   --rainbow-1: #ff5fa2;     /* pink */
   --rainbow-2: #6f42c1;     /* violet */
   --rainbow-3: #007bff;     /* blue */
   --rainbow-4: #7ccd75;     /* green */
 
+  /* Light mode = pure white */
   --bg-base: #ffffff;
-  --bg-scrolled: #f6f1ff;
+  --bg-scrolled: #ffffff;
 
-  --background: var(--bg-base);
-  --foreground: #1d1a39;
+  --background: #ffffff;
+  --foreground: #050505;
 
   --card: #ffffff;
-  --card-foreground: #1d1a39;
+  --card-foreground: #050505;
   --popover: #ffffff;
-  --popover-foreground: #1d1a39;
+  --popover-foreground: #050505;
 
-  --primary: #6f42c1;
+  --primary: #050505;
   --primary-foreground: #ffffff;
-  --secondary: #f3eefe;
-  --secondary-foreground: #1d1a39;
-  --muted: #f1eef9;
-  --muted-foreground: #5a5577;
-  --accent: #fde5f0;
-  --accent-foreground: #1d1a39;
+  --secondary: #f4f4f4;
+  --secondary-foreground: #050505;
+  --muted: #f4f4f4;
+  --muted-foreground: #6b6b6b;
+  --accent: #f4f4f4;
+  --accent-foreground: #050505;
   --destructive: #ff5fa2;
   --destructive-foreground: #ffffff;
 
-  --border: rgba(29, 26, 57, 0.12);
-  --input: rgba(29, 26, 57, 0.18);
-  --ring: #6f42c1;
+  --border: rgba(5, 5, 5, 0.10);
+  --input: rgba(5, 5, 5, 0.16);
+  --ring: #050505;
 
   --gradient-rainbow: linear-gradient(
     90deg,
