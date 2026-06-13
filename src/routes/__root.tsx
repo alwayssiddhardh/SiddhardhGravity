@@ -15,6 +15,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { ParticleCursor } from "@/components/particle-cursor";
 import { ScrollBackground } from "@/components/scroll-bg";
+import { SmoothScroll } from "@/components/smooth-scroll";
 
 function NotFoundComponent() {
   return (
@@ -100,6 +101,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
+        <SmoothScroll />
         <ScrollBackground />
         <ParticleCursor />
         <Navbar />
