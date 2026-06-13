@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, createElement } from "react";
 
 const CHARS = "!<>-_\\/[]{}—=+*^?#АБВΩΨΔ█▓▒░01";
 
@@ -7,12 +7,12 @@ export function ScrambleText({
   text,
   duration = 1800,
   className,
-  as: Tag = "span",
+  as = "span",
 }: {
   text: string;
   duration?: number;
   className?: string;
-  as?: keyof React.JSX.IntrinsicElements;
+  as?: string;
 }) {
   const [out, setOut] = useState(text);
   const ref = useRef<number | null>(null);
@@ -40,5 +40,5 @@ export function ScrambleText({
     };
   }, [text, duration]);
 
-  return <Tag className={className}>{out}</Tag>;
+  return createElement(as, { className }, out);
 }
