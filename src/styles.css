@@ -92,29 +92,30 @@
 }
 
 .dark {
-  --bg-base: #1d1a39;
-  --bg-scrolled: #451952;
+  /* Dark mode = pure black */
+  --bg-base: #000000;
+  --bg-scrolled: #000000;
 
-  --background: var(--bg-base);
-  --foreground: #f5f0ff;
+  --background: #000000;
+  --foreground: #ffffff;
 
-  --card: rgba(255, 255, 255, 0.04);
-  --card-foreground: #f5f0ff;
-  --popover: #221d44;
-  --popover-foreground: #f5f0ff;
+  --card: #050505;
+  --card-foreground: #ffffff;
+  --popover: #050505;
+  --popover-foreground: #ffffff;
 
-  --primary: #ff5fa2;
-  --primary-foreground: #1d1a39;
-  --secondary: rgba(255, 255, 255, 0.06);
-  --secondary-foreground: #f5f0ff;
-  --muted: rgba(255, 255, 255, 0.05);
-  --muted-foreground: #b9aed8;
-  --accent: rgba(124, 205, 117, 0.12);
-  --accent-foreground: #f5f0ff;
+  --primary: #ffffff;
+  --primary-foreground: #000000;
+  --secondary: rgba(255, 255, 255, 0.05);
+  --secondary-foreground: #ffffff;
+  --muted: rgba(255, 255, 255, 0.04);
+  --muted-foreground: #9a9a9a;
+  --accent: rgba(255, 255, 255, 0.06);
+  --accent-foreground: #ffffff;
 
-  --border: rgba(255, 255, 255, 0.12);
+  --border: rgba(255, 255, 255, 0.10);
   --input: rgba(255, 255, 255, 0.16);
-  --ring: #ff5fa2;
+  --ring: #ffffff;
 
   --shadow-glow: 0 20px 70px -20px color-mix(in oklab, var(--rainbow-1) 60%, transparent);
 }
@@ -125,7 +126,8 @@
   }
 
   html {
-    scroll-behavior: smooth;
+    /* Lenis controls smooth scroll */
+    scroll-behavior: auto;
   }
 
   body {
@@ -134,35 +136,36 @@
     font-family: var(--font-display);
     font-feature-settings: "ss01", "cv11";
     overflow-x: hidden;
-    transition: background-color 1.2s ease;
+    transition: background-color 0.4s ease;
   }
 
-  /* The scrolled background lives on a fixed layer behind everything */
+  /* Subtle grid futurism overlay, visible on both themes */
   body::before {
     content: "";
     position: fixed;
     inset: 0;
-    background: var(--bg-scrolled);
-    opacity: var(--scroll-progress, 0);
+    background-image:
+      linear-gradient(to right, color-mix(in oklab, var(--foreground) 6%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in oklab, var(--foreground) 6%, transparent) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
     z-index: -2;
-    transition: opacity 0.4s ease;
     pointer-events: none;
+    opacity: 0.55;
   }
 
   body::after {
     content: "";
     position: fixed;
     inset: 0;
-    background: var(--gradient-rainbow-soft);
-    opacity: 0.35;
+    background: radial-gradient(circle at 20% 10%, color-mix(in oklab, var(--rainbow-2) 18%, transparent), transparent 45%),
+                radial-gradient(circle at 80% 90%, color-mix(in oklab, var(--rainbow-3) 18%, transparent), transparent 45%),
+                radial-gradient(circle at 50% 50%, color-mix(in oklab, var(--rainbow-1) 10%, transparent), transparent 60%);
     z-index: -1;
     pointer-events: none;
     mix-blend-mode: screen;
-  }
-
-  :root body::after {
-    opacity: 0.22;
-    mix-blend-mode: multiply;
+    opacity: 0.7;
   }
 
   ::selection {
