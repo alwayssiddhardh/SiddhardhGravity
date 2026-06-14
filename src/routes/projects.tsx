@@ -86,7 +86,8 @@ function ProjectsPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8, ease: [0.2, 0.8, 0.2, 1] }}
-                className={`relative grid md:grid-cols-2 gap-10 md:gap-16 items-center ${reverse ? "md:[direction:rtl]" : ""}`}
+                whileTap={{ scale: 0.97, rotate: [0, -1.5, 1.5, 0], transition: { duration: 0.6 } }}
+                className={`relative grid md:grid-cols-2 gap-10 md:gap-16 items-center cursor-pointer ${reverse ? "md:[direction:rtl]" : ""}`}
               >
                 {/* Numbered milestone */}
                 <div className="hidden md:grid absolute left-1/2 -translate-x-1/2 -top-6 h-12 w-12 place-items-center rounded-full bg-background border-rainbow text-sm font-bold tracking-wider z-10">

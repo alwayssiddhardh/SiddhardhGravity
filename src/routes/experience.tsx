@@ -50,7 +50,18 @@ function ExperiencePage() {
               >
                 {/* Dot */}
                 <div className="absolute left-6 md:left-1/2 top-3 -translate-x-1/2 grid place-items-center">
-                  <div className="h-4 w-4 rounded-full bg-[var(--gradient-rainbow)] shadow-[0_0_0_4px_var(--background)] animate-pulse-ring" />
+                  <motion.div
+                    initial={{ scale: 0, rotate: -180 }}
+                    whileInView={{ scale: 1, rotate: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ type: "spring", stiffness: 200, damping: 12, delay: 0.2 }}
+                    whileHover={{ scale: 1.6, rotate: 180 }}
+                    className="relative h-5 w-5 rounded-full bg-[var(--gradient-rainbow)] shadow-[0_0_0_4px_var(--background),0_0_30px_var(--rainbow-2)]"
+                  >
+                    <span className="absolute inset-0 rounded-full animate-ping bg-[var(--rainbow-1)] opacity-60" />
+                    <span className="absolute -inset-2 rounded-full border border-dashed border-[var(--rainbow-3)]/40 animate-ring-spin" />
+                    <span className="absolute -inset-4 rounded-full border border-dashed border-[var(--rainbow-2)]/20 animate-ring-spin" style={{ animationDirection: "reverse", animationDuration: "12s" }} />
+                  </motion.div>
                 </div>
 
                 <div className={`pl-14 md:pl-0 ${isRight ? "md:pr-12 md:text-right" : "md:col-start-2 md:pl-12"}`}>

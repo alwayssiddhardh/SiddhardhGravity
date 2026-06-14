@@ -1,79 +1,89 @@
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Float, Sphere, Stars, Torus, Icosahedron } from "@react-three/drei";
+import { Float, Sphere, Stars, Torus, Icosahedron, OrbitControls } from "@react-three/drei";
 import { Suspense, useMemo, useRef } from "react";
 import * as THREE from "three";
 
 /**
- * Procedural "Earth-like" rotating planet — continents (green/brown) over deep blue oceans,
- * subtle clouds layer, atmosphere glow and orbiting rings.
+ * Vivid blue-purple "earth-like" planet inspired by reference: cratered/dappled
+ * surface, glowing atmosphere, cursor-draggable. Stars rotate slowly and pulse.
  */
 function EarthPlanet() {
   const planet = useRef<THREE.Mesh>(null);
   const clouds = useRef<THREE.Mesh>(null);
   const atmosphere = useRef<THREE.Mesh>(null);
 
-  const earthTexture = useMemo(() => makeEarthTexture(), []);
-  const cloudTexture = useMemo(() => makeCloudTexture(), []);
+  const surfaceTex = useMemo(() => makeSurfaceTexture(), []);
+  const cloudTex = useMemo(() => makeSpeckleTexture(), []);
 
   useFrame((_, dt) => {
-    if (planet.current) planet.current.rotation.y += dt * 0.18;
-    if (clouds.current) clouds.current.rotation.y += dt * 0.05;
-    if (atmosphere.current) atmosphere.current.rotation.y -= dt * 0.02;
+    if (planet.current) planet.current.rotation.y += dt * 0.15;
+    if (clouds.current) clouds.current.rotation.y += dt * 0.06;
+    if (atmosphere.current) atmosphere.current.rotation.y -= dt * 0.03;
   });
 
   return (
-    <Float speed={1.1} rotationIntensity={0.25} floatIntensity={1.2}>
+    <Float speed={1.1} rotationIntensity={0.3} floatIntensity={1.3}>
       <group>
-        {/* Planet */}
-        <Sphere ref={planet} args={[1.5, 128, 128]}>
+        <Sphere ref={planet} args={[1.55, 128, 128]}>
           <meshStandardMaterial
-            map={earthTexture}
-            roughness={0.85}
-            metalness={0.05}
-            emissive={"#0a1a3a"}
-            emissiveIntensity={0.18}
+            map={surfaceTex}
+            roughness={0.7}
+            metalness={0.15}
+            emissive={"#1a1066"}
+            emissiveIntensity={0.35}
           />
         </Sphere>
 
-        {/* Clouds */}
-        <Sphere ref={clouds} args={[1.53, 96, 96]}>
+        <Sphere ref={clouds} args={[1.58, 96, 96]}>
           <meshStandardMaterial
-            map={cloudTexture}
+            map={cloudTex}
             transparent
-            opacity={0.55}
+            opacity={0.5}
             depthWrite={false}
           />
         </Sphere>
 
-        {/* Atmosphere glow shell */}
-        <Sphere ref={atmosphere} args={[1.62, 64, 64]}>
-          <meshBasicMaterial
-            color={"#3aa0ff"}
-            transparent
-            opacity={0.12}
-            side={THREE.BackSide}
-          />
+        {/* Inner atmosphere */}
+        <Sphere args={[1.66, 64, 64]}>
+          <meshBasicMaterial color={"#5a8cff"} transparent opacity={0.18} side={THREE.BackSide} />
+        </Sphere>
+        {/* Outer halo */}
+        <Sphere ref={atmosphere} args={[1.82, 64, 64]}>
+          <meshBasicMaterial color={"#7d5cff"} transparent opacity={0.10} side={THREE.BackSide} />
         </Sphere>
 
-        {/* Tiny moon */}
-        <Icosahedron args={[0.18, 1]} position={[2.6, 0.5, 0.2]}>
-          <meshStandardMaterial color="#cfd6e0" roughness={0.9} />
+        <Icosahedron args={[0.16, 1]} position={[2.7, 0.6, 0.2]}>
+          <meshStandardMaterial color="#d8d6e5" roughness={0.85} />
         </Icosahedron>
       </group>
     </Float>
   );
 }
 
-function OrbitRing({ radius, color, tilt }: { radius: number; color: string; tilt: number }) {
+function OrbitRing({ radius, color, tilt, speed }: { radius: number; color: string; tilt: number; speed: number }) {
   const ref = useRef<THREE.Mesh>(null);
   useFrame((s) => {
     if (!ref.current) return;
-    ref.current.rotation.z = s.clock.elapsedTime * 0.22 * (radius % 2 === 0 ? 1 : -1);
+    ref.current.rotation.z = s.clock.elapsedTime * speed;
   });
   return (
-    <Torus ref={ref} args={[radius, 0.01, 16, 220]} rotation={[tilt, 0, 0]}>
-      <meshStandardMaterial color={color} emissive={color} emissiveIntensity={1.2} toneMapped={false} />
+    <Torus ref={ref} args={[radius, 0.012, 16, 220]} rotation={[tilt, 0, 0]}>
+      <meshStandardMaterial color={color} emissive={color} emissiveIntensity={1.5} toneMapped={false} />
     </Torus>
+  );
+}
+
+function MovingStars() {
+  const ref = useRef<THREE.Group>(null);
+  useFrame((s, dt) => {
+    if (!ref.current) return;
+    ref.current.rotation.y += dt * 0.02;
+    ref.current.rotation.x = Math.sin(s.clock.elapsedTime * 0.1) * 0.05;
+  });
+  return (
+    <group ref={ref}>
+      <Stars radius={30} depth={45} count={2400} factor={3.2} saturation={0.8} fade speed={2.2} />
+    </group>
   );
 }
 
@@ -86,17 +96,25 @@ export function Hero3D() {
       gl={{ antialias: true, alpha: true }}
     >
       <Suspense fallback={null}>
-        <ambientLight intensity={0.55} />
+        <ambientLight intensity={0.6} />
         <directionalLight position={[4, 3, 5]} intensity={1.4} color="#ffffff" />
-        <directionalLight position={[-4, -2, -3]} intensity={0.45} color="#3aa0ff" />
-        <pointLight position={[0, 2, 3]} intensity={0.6} color="#7ccd75" />
+        <directionalLight position={[-4, -2, -3]} intensity={0.6} color="#7d5cff" />
+        <pointLight position={[0, 2, 3]} intensity={0.7} color="#ff5fa2" />
 
         <EarthPlanet />
-        <OrbitRing radius={2.3} color="#ff5fa2" tilt={1.1} />
-        <OrbitRing radius={2.7} color="#007bff" tilt={0.6} />
-        <OrbitRing radius={3.1} color="#7ccd75" tilt={-0.4} />
+        <OrbitRing radius={2.3} color="#ff5fa2" tilt={1.1} speed={0.25} />
+        <OrbitRing radius={2.7} color="#3aa0ff" tilt={0.6} speed={-0.18} />
+        <OrbitRing radius={3.1} color="#7ccd75" tilt={-0.4} speed={0.14} />
 
-        <Stars radius={28} depth={40} count={1800} factor={2.2} saturation={0.6} fade speed={1} />
+        <MovingStars />
+
+        <OrbitControls
+          enableZoom={false}
+          enablePan={false}
+          autoRotate
+          autoRotateSpeed={0.35}
+          rotateSpeed={0.7}
+        />
       </Suspense>
     </Canvas>
   );
@@ -104,7 +122,7 @@ export function Hero3D() {
 
 /* ---------- Procedural textures (no external assets) ---------- */
 
-function makeEarthTexture() {
+function makeSurfaceTexture() {
   const w = 1024;
   const h = 512;
   const canvas = document.createElement("canvas");
@@ -112,43 +130,42 @@ function makeEarthTexture() {
   canvas.height = h;
   const ctx = canvas.getContext("2d")!;
 
-  // Ocean gradient base
+  // Deep blue → violet base
   const og = ctx.createLinearGradient(0, 0, 0, h);
-  og.addColorStop(0, "#0b2447");
-  og.addColorStop(0.5, "#0e3a73");
-  og.addColorStop(1, "#0b2447");
+  og.addColorStop(0, "#1a1466");
+  og.addColorStop(0.35, "#2a2cb8");
+  og.addColorStop(0.65, "#3324c9");
+  og.addColorStop(1, "#1a1466");
   ctx.fillStyle = og;
   ctx.fillRect(0, 0, w, h);
 
-  // Random continent blobs (greens / browns)
-  const landColors = ["#1e7a3a", "#256b2b", "#3a7a2c", "#5a8a3e", "#7a6b2f", "#3a5a25"];
-  for (let i = 0; i < 110; i++) {
+  // Crater / spot dapples — varied blues and purples, like reference
+  const dotColors = ["#0e0a4f", "#1a1488", "#3a2db8", "#5a3cc4", "#7d5cff", "#241980"];
+  for (let i = 0; i < 360; i++) {
     const cx = Math.random() * w;
-    const cy = h * 0.15 + Math.random() * h * 0.7;
-    const rx = 30 + Math.random() * 140;
-    const ry = 20 + Math.random() * 80;
-    const color = landColors[Math.floor(Math.random() * landColors.length)];
-    const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(rx, ry));
+    const cy = h * 0.05 + Math.random() * h * 0.9;
+    const r = 4 + Math.random() * 38;
+    const color = dotColors[Math.floor(Math.random() * dotColors.length)];
+    const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
     g.addColorStop(0, color);
-    g.addColorStop(0.7, color + "cc");
+    g.addColorStop(0.6, color + "aa");
     g.addColorStop(1, "transparent");
     ctx.fillStyle = g;
     ctx.beginPath();
-    ctx.ellipse(cx, cy, rx, ry, Math.random() * Math.PI, 0, Math.PI * 2);
+    ctx.arc(cx, cy, r, 0, Math.PI * 2);
     ctx.fill();
   }
 
-  // Polar ice caps
-  const top = ctx.createLinearGradient(0, 0, 0, h * 0.12);
-  top.addColorStop(0, "rgba(255,255,255,0.95)");
-  top.addColorStop(1, "rgba(255,255,255,0)");
-  ctx.fillStyle = top;
-  ctx.fillRect(0, 0, w, h * 0.12);
-  const bot = ctx.createLinearGradient(0, h * 0.88, 0, h);
-  bot.addColorStop(0, "rgba(255,255,255,0)");
-  bot.addColorStop(1, "rgba(255,255,255,0.95)");
-  ctx.fillStyle = bot;
-  ctx.fillRect(0, h * 0.88, w, h * 0.12);
+  // Bright highlight specks
+  for (let i = 0; i < 90; i++) {
+    const cx = Math.random() * w;
+    const cy = Math.random() * h;
+    const r = 1 + Math.random() * 3;
+    ctx.fillStyle = "rgba(200,180,255,0.7)";
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI * 2);
+    ctx.fill();
+  }
 
   const tex = new THREE.CanvasTexture(canvas);
   tex.colorSpace = THREE.SRGBColorSpace;
@@ -156,7 +173,7 @@ function makeEarthTexture() {
   return tex;
 }
 
-function makeCloudTexture() {
+function makeSpeckleTexture() {
   const w = 1024;
   const h = 512;
   const canvas = document.createElement("canvas");
@@ -164,12 +181,12 @@ function makeCloudTexture() {
   canvas.height = h;
   const ctx = canvas.getContext("2d")!;
   ctx.clearRect(0, 0, w, h);
-  for (let i = 0; i < 220; i++) {
+  for (let i = 0; i < 180; i++) {
     const cx = Math.random() * w;
     const cy = Math.random() * h;
-    const r = 15 + Math.random() * 70;
+    const r = 8 + Math.random() * 50;
     const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
-    g.addColorStop(0, "rgba(255,255,255,0.8)");
+    g.addColorStop(0, "rgba(180,160,255,0.5)");
     g.addColorStop(1, "transparent");
     ctx.fillStyle = g;
     ctx.beginPath();

@@ -2,10 +2,9 @@ import { useEffect, useRef } from "react";
 
 /**
  * Cursor-radius particle field.
- * - Particles only appear inside a circular halo around the cursor.
- * - No edges connecting particles (individual points only, per spec).
- * - Opening: particles fade-in / scale-in. Closing: same fade-out when cursor leaves.
- * - Rainbow palette: pink / violet / blue / green.
+ * Dense, multi-colored speck cloud that lives only inside a halo around the cursor.
+ * Particles drift like bubbles in a viscous liquid — slight buoyancy, gentle swirl,
+ * pulled back when they cross the halo boundary, fade in/out on enter/leave.
  */
 type P = {
   x: number;
@@ -14,13 +13,18 @@ type P = {
   vy: number;
   r: number;
   hue: number;
-  life: number; // 0..1, for opening/closing animation
-  target: number; // life target (1 active, 0 closing)
+  life: number;
+  target: number;
+  phase: number;
+  freq: number;
 };
 
-const COLORS = ["#ff5fa2", "#6f42c1", "#007bff", "#7ccd75"];
-const RADIUS = 170;
-const COUNT = 60;
+const COLORS = [
+  "#ff5fa2", "#ff7ab8", "#6f42c1", "#8a5cf6",
+  "#007bff", "#3aa0ff", "#7ccd75", "#ffd166", "#ff8a3d",
+];
+const RADIUS = 190;
+const COUNT = 220;
 
 export function ParticleCursor() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -46,17 +50,18 @@ export function ParticleCursor() {
     resize();
     window.addEventListener("resize", resize);
 
-    // Pre-seed particles inside the halo (will follow cursor)
     for (let i = 0; i < COUNT; i++) {
       particles.current.push({
         x: 0,
         y: 0,
-        vx: (Math.random() - 0.5) * 0.6,
-        vy: (Math.random() - 0.5) * 0.6,
-        r: Math.random() * 2.6 + 0.6,
-        hue: i % COLORS.length,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        r: Math.random() * 1.6 + 0.4,
+        hue: Math.floor(Math.random() * COLORS.length),
         life: 0,
         target: 0,
+        phase: Math.random() * Math.PI * 2,
+        freq: 0.6 + Math.random() * 1.4,
       });
     }
 
@@ -75,18 +80,19 @@ export function ParticleCursor() {
     document.addEventListener("mouseleave", onLeave);
 
     let lastSpawn = 0;
+    let startTime = performance.now();
 
     const tick = (t: number) => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const time = (t - startTime) / 1000;
 
       const mx = mouse.current.x;
       const my = mouse.current.y;
 
-      // Soft halo glow under particles (subtle, additive)
       if (mouse.current.active) {
         const grad = ctx.createRadialGradient(mx, my, 0, mx, my, RADIUS);
-        grad.addColorStop(0, "rgba(255,95,162,0.10)");
-        grad.addColorStop(0.5, "rgba(111,66,193,0.06)");
+        grad.addColorStop(0, "rgba(255,95,162,0.08)");
+        grad.addColorStop(0.5, "rgba(111,66,193,0.04)");
         grad.addColorStop(1, "rgba(0,123,255,0.0)");
         ctx.fillStyle = grad;
         ctx.beginPath();
@@ -94,66 +100,70 @@ export function ParticleCursor() {
         ctx.fill();
       }
 
-      // Periodically respawn drifting particles to keep field lively
-      if (t - lastSpawn > 90 && mouse.current.active) {
+      // Continuous respawn — keeps cloud dense like in reference
+      if (t - lastSpawn > 22 && mouse.current.active) {
         lastSpawn = t;
-        const dead = particles.current.find((p) => p.life < 0.05 && p.target === 1);
-        if (dead) {
+        for (let s = 0; s < 4; s++) {
+          const dead = particles.current.find((p) => p.life < 0.04 && p.target === 1);
+          if (!dead) break;
           const a = Math.random() * Math.PI * 2;
-          const r = Math.random() * RADIUS * 0.85;
+          const r = Math.sqrt(Math.random()) * RADIUS * 0.95;
           dead.x = mx + Math.cos(a) * r;
           dead.y = my + Math.sin(a) * r;
-          dead.vx = (Math.random() - 0.5) * 1.2;
-          dead.vy = (Math.random() - 0.5) * 1.2 - 0.3; // slight upward "bubble" drift
-          dead.r = Math.random() * 2.8 + 0.8;
+          dead.vx = (Math.random() - 0.5) * 0.8;
+          dead.vy = (Math.random() - 0.5) * 0.6 - 0.25;
+          dead.r = Math.random() * 1.8 + 0.4;
           dead.hue = Math.floor(Math.random() * COLORS.length);
           dead.life = 0;
+          dead.phase = Math.random() * Math.PI * 2;
         }
       }
 
-      particles.current.forEach((p) => {
-        // Easing — opening (slower fade-in) and closing (slower fade-out) per user spec
-        const easeIn = 0.025;
-        const easeOut = 0.018;
-        p.life += (p.target - p.life) * (p.target > p.life ? easeIn : easeOut);
+      ctx.globalCompositeOperation = "lighter";
 
+      particles.current.forEach((p) => {
+        const easeIn = 0.04;
+        const easeOut = 0.022;
+        p.life += (p.target - p.life) * (p.target > p.life ? easeIn : easeOut);
         if (p.life < 0.01) return;
 
-        // Gentle bubble-rise + drift, pulled toward cursor a bit
+        // Liquid bubble motion — sinusoidal wobble + buoyancy
+        const wob = Math.sin(time * p.freq + p.phase) * 0.05;
+        p.vx += wob;
+        p.vy -= 0.012; // buoyant rise
+
         p.x += p.vx;
         p.y += p.vy;
-        p.vy -= 0.005; // upward buoyancy
 
         if (mouse.current.active) {
           const dx = mx - p.x;
           const dy = my - p.y;
           const d = Math.hypot(dx, dy);
-          if (d > RADIUS) {
-            // Pull back inside halo
-            p.vx += (dx / d) * 0.05;
-            p.vy += (dy / d) * 0.05;
+          if (d > RADIUS * 0.9) {
+            const pull = (d - RADIUS * 0.9) * 0.004;
+            p.vx += (dx / d) * pull;
+            p.vy += (dy / d) * pull;
           } else {
-            // Slight orbital swirl
-            p.vx += (-dy / (d + 1)) * 0.005;
-            p.vy += (dx / (d + 1)) * 0.005;
+            // gentle orbital swirl
+            p.vx += (-dy / (d + 1)) * 0.006;
+            p.vy += (dx / (d + 1)) * 0.006;
           }
         }
 
-        // Damping
-        p.vx *= 0.985;
-        p.vy *= 0.985;
+        p.vx *= 0.96;
+        p.vy *= 0.96;
 
         const color = COLORS[p.hue];
-        const alpha = p.life;
-        ctx.beginPath();
+        ctx.globalAlpha = p.life * 0.9;
         ctx.fillStyle = color;
-        ctx.globalAlpha = alpha * 0.95;
         ctx.shadowColor = color;
-        ctx.shadowBlur = 14;
-        ctx.arc(p.x, p.y, p.r * p.life, 0, Math.PI * 2);
+        ctx.shadowBlur = 8;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r * (0.6 + p.life * 0.6), 0, Math.PI * 2);
         ctx.fill();
       });
 
+      ctx.globalCompositeOperation = "source-over";
       ctx.globalAlpha = 1;
       ctx.shadowBlur = 0;
 
