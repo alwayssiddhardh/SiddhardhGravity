@@ -7,6 +7,7 @@ import { profile, projects, skills, RESUME_URL } from "@/lib/portfolio-data";
 import avatar from "@/assets/avatar.jpg";
 import { ScrambleText } from "@/components/scramble-text";
 import { MorphShape } from "@/components/morph-shape";
+import { MorphIcon } from "@/components/morph-icon";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -187,21 +188,7 @@ function Home() {
           />
           <div className="grid md:grid-cols-3 gap-6 mt-12">
             {features.map((f, i) => (
-              <motion.div
-                key={f.title}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-                whileHover={{ y: -8, rotate: -0.5 }}
-                className="glow-card p-7"
-              >
-                <div className="grid h-12 w-12 place-items-center rounded-2xl bg-[var(--gradient-rainbow)] text-white shadow-lg">
-                  <f.icon className="h-5 w-5" />
-                </div>
-                <h3 className="mt-5 text-xl font-semibold">{f.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{f.desc}</p>
-              </motion.div>
+              <FeatureCard key={f.title} f={f} index={i} />
             ))}
           </div>
         </div>
@@ -222,16 +209,21 @@ function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.6, delay: i * 0.08 }}
-                whileHover={{ y: -6 }}
-                className="glow-card p-6"
+                whileHover={{ y: -8, rotateX: 3, rotateY: -3, scale: 1.02 }}
+                whileTap={{ scale: 0.94, rotate: [0, -2, 2, 0], transition: { duration: 0.5 } }}
+                style={{ transformStyle: "preserve-3d", transformPerspective: 1000 }}
+                className="glow-card p-6 cursor-pointer relative overflow-hidden"
               >
-                <div className="text-xs uppercase tracking-widest text-muted-foreground">{p.date}</div>
-                <h3 className="mt-2 text-2xl font-semibold">{p.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{p.description}</p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {p.tech.slice(0, 4).map((t) => (
-                    <span key={t} className="text-xs rounded-full border border-border px-2 py-1">{t}</span>
-                  ))}
+                <div className="pointer-events-none absolute -inset-1 opacity-0 hover:opacity-100 transition duration-500" style={{ background: "var(--gradient-rainbow-soft)", filter: "blur(40px)" }} />
+                <div className="relative">
+                  <div className="text-xs uppercase tracking-widest text-muted-foreground">{p.date}</div>
+                  <h3 className="mt-2 text-2xl font-semibold">{p.title}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">{p.description}</p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {p.tech.slice(0, 4).map((t) => (
+                      <span key={t} className="text-xs rounded-full border border-border px-2 py-1">{t}</span>
+                    ))}
+                  </div>
                 </div>
               </motion.div>
             ))}
