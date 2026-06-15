@@ -163,23 +163,17 @@ function ProjectsPage() {
                   </div>
 
                   <div className="mt-7 flex gap-3 flex-wrap">
-                    <a
-                      href="https://github.com/siddhardhaungarala"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="btn-rainbow text-sm group"
-                    >
-                      <Github className="h-4 w-4" /> View code
-                      <ExternalLink className="h-3.5 w-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                    </a>
-                    <a
-                      href="https://github.com/siddhardhaungarala"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="btn-ghost-rainbow text-sm"
-                    >
-                      Live demo
-                    </a>
+                    {p.github && (
+                      <a href={p.github} target="_blank" rel="noreferrer" className="btn-rainbow text-sm group">
+                        <Github className="h-4 w-4" /> View code
+                        <ExternalLink className="h-3.5 w-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                      </a>
+                    )}
+                    {p.demo && (
+                      <a href={p.demo} target="_blank" rel="noreferrer" className="btn-ghost-rainbow text-sm">
+                        Live demo <ExternalLink className="h-3.5 w-3.5" />
+                      </a>
+                    )}
                   </div>
                 </motion.div>
               </motion.article>

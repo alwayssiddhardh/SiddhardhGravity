@@ -119,8 +119,10 @@ export const projects = [
       "Full-stack commerce platform with Razorpay payments, optimized checkout and a 25% bump in transaction speed and satisfaction.",
     tech: ["MongoDB", "Express", "React", "Node", "TypeScript", "Firebase", "Tailwind"],
     date: "2025",
+    github: "https://github.com/siddhardhaungarala/mern-ecommerce",
+    demo: "https://siddhardhungarala.web.app",
     imagePrompt:
-      "abstract 3D isometric e-commerce dashboard with floating product cards, rainbow gradient glow on dark violet background, futuristic UI, soft bloom, cinematic",
+      "abstract 3D isometric e-commerce dashboard, rainbow gradient glow on dark violet background, futuristic UI, soft bloom, cinematic",
   },
   {
     title: "Hospital Landing Page",
@@ -128,8 +130,10 @@ export const projects = [
       "Crafted a polished hospital marketing site in 72 hours — built on the MERN stack with Firebase Firestore powering the data layer.",
     tech: ["React", "TypeScript", "Firebase", "Firestore", "Tailwind"],
     date: "2024",
+    github: "https://github.com/siddhardhaungarala/hospital-landing",
+    demo: "https://siddhardhungarala.web.app",
     imagePrompt:
-      "minimal medical landing page mockup floating in space, soft pink and blue rainbow lighting, glassmorphism, dreamy depth of field",
+      "minimal medical landing page mockup floating in space, soft pink and blue rainbow lighting, glassmorphism",
   },
   {
     title: "Exam Cell Management",
@@ -137,8 +141,10 @@ export const projects = [
       "Operations system for a college exam cell that cut administrative load by ~22%, with role-based dashboards and reports.",
     tech: ["PHP", "MySQLi", "JS", "Bootstrap", "HTML5", "CSS"],
     date: "2023",
+    github: "https://github.com/siddhardhaungarala/exam-cell",
+    demo: "",
     imagePrompt:
-      "dashboard UI with charts and data tables glowing in violet and green, dark academic vibe, neon outlines, isometric perspective",
+      "dashboard UI with charts and data tables glowing in violet and green, dark academic vibe, neon outlines, isometric",
   },
   {
     title: "To-Do & Task Scheduling Mobile App",
@@ -146,8 +152,10 @@ export const projects = [
       "Cross-platform mobile app to schedule and track tasks across the day, backed by Firebase Realtime DB and Auth.",
     tech: ["Flutter", "Dart", "Firebase Realtime DB", "Firebase Auth"],
     date: "2024",
+    github: "https://github.com/siddhardhaungarala/todo-flutter",
+    demo: "",
     imagePrompt:
-      "two iPhone mockups floating side by side showing a colorful task scheduling app, rainbow particles around, dark studio background",
+      "two iPhone mockups floating side by side showing a colorful task scheduling app, rainbow particles, dark studio",
   },
   {
     title: "College E-Library",
@@ -155,8 +163,10 @@ export const projects = [
       "Knowledge sharing platform for students to access notes, books and learn collaboratively across departments.",
     tech: ["PHP", "MySQL", "Bootstrap", "jQuery", "AJAX"],
     date: "Sep 2022",
+    github: "https://github.com/siddhardhaungarala/college-elibrary",
+    demo: "",
     imagePrompt:
-      "stack of glowing 3D books floating in violet space with rainbow light streaks, library shelves dissolving into particles, cinematic",
+      "stack of glowing 3D books floating in violet space with rainbow light streaks, cinematic",
   },
   {
     title: "Dermatology Clinic + Appointment Dashboard",
@@ -164,8 +174,10 @@ export const projects = [
       "Marketing site plus an internal appointment dashboard for a dermatology clinic, ready for staff booking workflows.",
     tech: ["React", "TypeScript", "Tailwind", "Firebase"],
     date: "2024",
+    github: "https://github.com/siddhardhaungarala/derma-clinic",
+    demo: "https://siddhardhungarala.web.app",
     imagePrompt:
-      "elegant clinic website mockup floating on a pastel pink and violet gradient, gentle bokeh, premium healthcare design",
+      "elegant clinic website mockup floating on a pastel pink and violet gradient, premium healthcare design",
   },
 ];
 
