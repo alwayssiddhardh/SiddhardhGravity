@@ -307,3 +307,8 @@
 }
 .animate-marquee { animation: marquee 28s linear infinite; }
 .animate-pulse-ring { animation: pulse-ring 2.4s ease-out infinite; }
+
+@keyframes scanShift {
+  0% { background-position: 0 0; }
+  100% { background-position: 200px 200px; }
+}
