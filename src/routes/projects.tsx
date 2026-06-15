@@ -4,7 +4,8 @@ import { Calendar, ExternalLink, Github } from "lucide-react";
 import { useRef } from "react";
 import { projects } from "@/lib/portfolio-data";
 import ecom from "@/assets/proj-ecom.jpg";
-import hospital from "@/assets/proj-hospital.jpg";
+// import hospital from "@/assets/proj-hospital.jpg";
+
 import examcell from "@/assets/proj-examcell.jpg";
 import todo from "@/assets/proj-todo.jpg";
 import library from "@/assets/proj-library.jpg";
@@ -12,7 +13,8 @@ import derma from "@/assets/proj-derma.jpg";
 
 const imageMap: Record<string, string> = {
   "MERN E-Commerce Platform": ecom,
-  "Hospital Landing Page": hospital,
+  // "Hospital Landing Page": hospital,
+
   "Exam Cell Management": examcell,
   "To-Do & Task Scheduling Mobile App": todo,
   "College E-Library": library,

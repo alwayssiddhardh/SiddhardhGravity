@@ -118,22 +118,22 @@ export const projects = [
     description:
       "Full-stack commerce platform with Razorpay payments, optimized checkout and a 25% bump in transaction speed and satisfaction.",
     tech: ["MongoDB", "Express", "React", "Node", "TypeScript", "Firebase", "Tailwind"],
-    date: "2025",
-    github: "https://github.com/siddhardhaungarala/mern-ecommerce",
-    demo: "https://siddhardhungarala.web.app",
+    date: "2026",
+    github: "https://github.com/siddhardhaungarala/ECommerce-TechStore.git",
+    demo: "https://plantasy.co.in/",
     imagePrompt:
       "abstract 3D isometric e-commerce dashboard, rainbow gradient glow on dark violet background, futuristic UI, soft bloom, cinematic",
   },
   {
-    title: "Hospital Landing Page",
+    title: "Remote Sensing Satellite Image Detection",
     description:
-      "Crafted a polished hospital marketing site in 72 hours — built on the MERN stack with Firebase Firestore powering the data layer.",
-    tech: ["React", "TypeScript", "Firebase", "Firestore", "Tailwind"],
-    date: "2024",
-    github: "https://github.com/siddhardhaungarala/hospital-landing",
-    demo: "https://siddhardhungarala.web.app",
+      "Developed a system for detecting and analyzing satellite images for environmental monitoring and disaster response.",
+    tech: ["Python", "TensorFlow", "OpenCV", "YOLOv8", "R-CNN"],
+    date: "2026",
+    github: "https://github.com/siddhardhaungarala/Remote-Sensing.git",
+    demo: "https://revibes-clinic.web.app/",
     imagePrompt:
-      "minimal medical landing page mockup floating in space, soft pink and blue rainbow lighting, glassmorphism",
+      "satellite view of Earth with glowing neon outlines of detected features like forests, water bodies and urban areas, dark space background, cinematic",
   },
   {
     title: "Exam Cell Management",
@@ -141,7 +141,7 @@ export const projects = [
       "Operations system for a college exam cell that cut administrative load by ~22%, with role-based dashboards and reports.",
     tech: ["PHP", "MySQLi", "JS", "Bootstrap", "HTML5", "CSS"],
     date: "2023",
-    github: "https://github.com/siddhardhaungarala/exam-cell",
+    github: "https://github.com/siddhardhaungarala/Exam-Cell-Automation.git",
     demo: "",
     imagePrompt:
       "dashboard UI with charts and data tables glowing in violet and green, dark academic vibe, neon outlines, isometric",
@@ -152,7 +152,7 @@ export const projects = [
       "Cross-platform mobile app to schedule and track tasks across the day, backed by Firebase Realtime DB and Auth.",
     tech: ["Flutter", "Dart", "Firebase Realtime DB", "Firebase Auth"],
     date: "2024",
-    github: "https://github.com/siddhardhaungarala/todo-flutter",
+    github: "https://github.com/siddhardhaungarala/ToDo.git",
     demo: "",
     imagePrompt:
       "two iPhone mockups floating side by side showing a colorful task scheduling app, rainbow particles, dark studio",
@@ -163,7 +163,7 @@ export const projects = [
       "Knowledge sharing platform for students to access notes, books and learn collaboratively across departments.",
     tech: ["PHP", "MySQL", "Bootstrap", "jQuery", "AJAX"],
     date: "Sep 2022",
-    github: "https://github.com/siddhardhaungarala/college-elibrary",
+    github: "https://github.com/siddhardhaungarala/E-Library.git",
     demo: "",
     imagePrompt:
       "stack of glowing 3D books floating in violet space with rainbow light streaks, cinematic",
@@ -174,8 +174,8 @@ export const projects = [
       "Marketing site plus an internal appointment dashboard for a dermatology clinic, ready for staff booking workflows.",
     tech: ["React", "TypeScript", "Tailwind", "Firebase"],
     date: "2024",
-    github: "https://github.com/siddhardhaungarala/derma-clinic",
-    demo: "https://siddhardhungarala.web.app",
+    github: "https://github.com/siddhardhaungarala/",
+    demo: "https://revibes-clinic.web.app/",
     imagePrompt:
       "elegant clinic website mockup floating on a pastel pink and violet gradient, premium healthcare design",
   },
