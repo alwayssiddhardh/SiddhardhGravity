@@ -72,24 +72,67 @@ function ContactPage() {
             </div>
           </div>
 
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              const fd = new FormData(e.currentTarget);
-              const subject = encodeURIComponent(`Hello from ${fd.get("name")}`);
-              const body = encodeURIComponent(`${fd.get("message")}\n\n— ${fd.get("name")} (${fd.get("email")})`);
-              window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
-            }}
-            className="space-y-3 pt-4 border-t border-border"
-          >
-            <h3 className="font-semibold">Quick message</h3>
-            <div className="grid sm:grid-cols-2 gap-3">
-              <input name="name" required placeholder="Your name" className="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--rainbow-2)]" />
-              <input name="email" required type="email" placeholder="Your email" className="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--rainbow-2)]" />
+          {/* Disabled "Quick message" — creatively offline */}
+          <div className="pt-4 border-t border-border">
+            <div
+              aria-disabled="true"
+              className="relative overflow-hidden rounded-2xl border border-dashed border-border/70 bg-gradient-to-br from-background/60 to-background/20 p-6"
+            >
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 opacity-[0.18]"
+                style={{
+                  backgroundImage:
+                    "repeating-linear-gradient(45deg, var(--rainbow-1) 0 1px, transparent 1px 10px)",
+                  animation: "scanShift 14s linear infinite",
+                }}
+              />
+              <div className="pointer-events-none absolute -top-16 -right-16 h-48 w-48 rounded-full bg-[var(--gradient-rainbow-soft)] blur-3xl opacity-60" />
+
+              <div className="relative flex items-start gap-4">
+                <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[var(--gradient-rainbow)] text-white shadow-lg">
+                  <span className="relative flex h-3 w-3">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
+                    <span className="relative inline-flex h-3 w-3 rounded-full bg-white" />
+                  </span>
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--rainbow-1)] animate-pulse" />
+                    Quick message · temporarily offline
+                  </div>
+                  <h3 className="mt-2 text-2xl md:text-3xl font-bold tracking-tight">
+                    <span className="text-shimmer">I'll get to you soon ✦</span>
+                  </h3>
+                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                    The inline composer is napping while I rewire it with something prettier.
+                    Until then — fire a note straight to my inbox, I read every one.
+                  </p>
+
+                  <div className="mt-5 space-y-2 select-none pointer-events-none">
+                    <div className="grid sm:grid-cols-2 gap-2">
+                      <div className="h-9 rounded-xl border border-dashed border-border bg-background/40 px-3 flex items-center text-xs text-muted-foreground/60">Your name</div>
+                      <div className="h-9 rounded-xl border border-dashed border-border bg-background/40 px-3 flex items-center text-xs text-muted-foreground/60">Your email</div>
+                    </div>
+                    <div className="h-20 rounded-xl border border-dashed border-border bg-background/40 px-3 py-2 text-xs text-muted-foreground/60">What's on your mind?</div>
+                    <button type="button" disabled className="mt-1 inline-flex items-center gap-2 rounded-xl border border-dashed border-border bg-background/40 px-4 py-2 text-xs font-mono uppercase tracking-widest text-muted-foreground/70 cursor-not-allowed">
+                      <span className="h-1.5 w-1.5 rounded-full bg-[var(--rainbow-3)] animate-pulse" />
+                      sending… disabled
+                    </button>
+                  </div>
+
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    <a href={`mailto:${profile.email}`} className="btn-rainbow text-sm">
+                      <Mail className="h-4 w-4" /> Email me instead
+                    </a>
+                    <a href={profile.socials.linkedin} target="_blank" rel="noreferrer" className="btn-ghost-rainbow text-sm">
+                      <Linkedin className="h-4 w-4" /> DM on LinkedIn
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
-            <textarea name="message" required rows={4} placeholder="What's on your mind?" className="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--rainbow-2)]" />
-            <button type="submit" className="btn-rainbow">Send message</button>
-          </form>
+          </div>
         </motion.div>
 
         {/* Resume preview */}
