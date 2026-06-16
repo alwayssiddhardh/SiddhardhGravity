@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
-import { interpolate } from "flubber";
+import * as flubber from "flubber";
+const interpolate = (flubber as any).interpolate ?? (flubber as any).default?.interpolate;
 
 /** MorphSVG-equivalent (free). Cycles through SVG path `d` strings on a timeline. */
 const SHAPES = [

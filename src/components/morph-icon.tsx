@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { interpolate } from "flubber";
+import * as flubber from "flubber";
+const interpolate = (flubber as any).interpolate ?? (flubber as any).default?.interpolate;
 
 /** Small morphing SVG icon used inside the "What I do" cards.
  * Cycles through shapes on hover (driven by parent `active` prop). */
