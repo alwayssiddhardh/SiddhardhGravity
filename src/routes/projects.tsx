@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { createFileRoute } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Calendar, ExternalLink, Github } from "lucide-react";
@@ -5,7 +6,7 @@ import { useRef } from "react";
 import { projects } from "@/lib/portfolio-data";
 import ecom from "@/assets/proj-ecom.jpg";
 // import hospital from "@/assets/proj-hospital.jpg";
-
+import remote from "@/assets/proj-remoteSense.png";
 import examcell from "@/assets/proj-examcell.jpg";
 import todo from "@/assets/proj-todo.jpg";
 import library from "@/assets/proj-library.jpg";
@@ -14,7 +15,7 @@ import derma from "@/assets/proj-derma.jpg";
 const imageMap: Record<string, string> = {
   "MERN E-Commerce Platform": ecom,
   // "Hospital Landing Page": hospital,
-
+  "Remote Sensing Satellite Image Detection": remote,
   "Exam Cell Management": examcell,
   "To-Do & Task Scheduling Mobile App": todo,
   "College E-Library": library,
