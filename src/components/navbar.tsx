@@ -1,8 +1,10 @@
+/* eslint-disable prettier/prettier */
 import { Link } from "@tanstack/react-router";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { useTheme } from "./theme-provider";
-import logoAsset from "@/assets/logo.png.asset.json";
+// import logoAsset from "@/assets/logo.png.asset.json";
+import Logo from "@/assets/logo.png";
 
 const links = [
   { to: "/", label: "Home" },
@@ -22,7 +24,7 @@ export function Navbar() {
         <nav className="glass flex items-center justify-between rounded-full px-4 py-2.5 shadow-lg">
           <Link to="/" className="flex items-center gap-2 font-bold group">
             <span className="relative grid h-9 w-9 place-items-center rounded-xl overflow-hidden ring-1 ring-border bg-background shadow-[0_8px_20px_-6px_var(--rainbow-2)] transition-transform duration-500 group-hover:rotate-[360deg]">
-              <img src={logoAsset.url} alt="S" className="h-7 w-7 object-contain" />
+              <img src={Logo} alt="S" className="h-7 w-7 object-contain" />
             </span>
             <span className="text-rainbow text-base tracking-tight">siddhardha<span className="text-foreground/50">.ai</span></span>
           </Link>

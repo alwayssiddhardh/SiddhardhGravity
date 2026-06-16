@@ -1,7 +1,9 @@
+/* eslint-disable prettier/prettier */
 import { Github, Linkedin, Instagram, Mail, Globe, Twitter, ArrowUpRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { profile } from "@/lib/portfolio-data";
-import logoAsset from "@/assets/logo.png.asset.json";
+// import logoAsset from "@/assets/logo.png.asset.json";
+import Logo from "@/assets/logo.png";
 
 const nav = [
   { to: "/", label: "Home" },
@@ -34,7 +36,7 @@ export function Footer() {
         <div className="md:col-span-5">
           <Link to="/" className="inline-flex items-center gap-3 group">
             <span className="grid h-12 w-12 place-items-center rounded-2xl overflow-hidden ring-1 ring-border bg-background shadow-[0_8px_24px_-6px_var(--rainbow-2)] transition-transform duration-500 group-hover:rotate-[360deg]">
-              <img src={logoAsset.url} alt="Logo" className="h-9 w-9 object-contain" />
+              <img src={Logo} alt="Logo" className="h-9 w-9 object-contain" />
             </span>
             <span>
               <div className="font-bold tracking-tight text-rainbow text-lg">siddhardha.ai</div>
