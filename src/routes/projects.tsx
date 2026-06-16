@@ -6,7 +6,7 @@ import { useRef } from "react";
 import { projects } from "@/lib/portfolio-data";
 import ecom from "@/assets/proj-ecom.jpg";
 // import hospital from "@/assets/proj-hospital.jpg";
-import remote from "@/assets/proj-remoteSense.png";
+import remote from "@/assets/proj-remoteSense.jpg";
 import examcell from "@/assets/proj-examcell.jpg";
 import todo from "@/assets/proj-todo.jpg";
 import library from "@/assets/proj-library.jpg";
