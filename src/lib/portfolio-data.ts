@@ -195,7 +195,7 @@ export const projects = [
       "stack of glowing 3D books floating in violet space with rainbow light streaks, cinematic",
   },
   {
-    title: "Dermatology Clinic + Appointment Dashboard",
+    title: "Landing page for dermatology clinic + appointment dashboard",
     description:
       "Marketing site plus an internal appointment dashboard for a dermatology clinic, ready for staff booking workflows.",
     tech: ["React", "TypeScript", "Tailwind", "Firebase"],

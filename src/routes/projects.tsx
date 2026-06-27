@@ -20,7 +20,7 @@ const imageMap: Record<string, string> = {
   "Exam Cell Management": examcell,
   "To-Do & Task Scheduling Mobile App": todo,
   "College E-Library": library,
-  "Dermatology Clinic + Appointment Dashboard": derma,
+  "Landing page for dermatology clinic + appointment dashboard": derma,
 };
 
 export const Route = createFileRoute("/projects")({
