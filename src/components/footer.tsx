@@ -2,8 +2,7 @@
 import { Github, Linkedin, Instagram, Mail, Globe, Twitter, ArrowUpRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { profile } from "@/lib/portfolio-data";
-// import logoAsset from "@/assets/logo.png.asset.json";
-import Logo from "@/assets/logo.png";
+const Logo = "/logo.png";
 
 const nav = [
   { to: "/", label: "Home" },

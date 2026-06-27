@@ -3,8 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { useTheme } from "./theme-provider";
-// import logoAsset from "@/assets/logo.png.asset.json";
-import Logo from "@/assets/logo.png";
+const Logo = "/logo.png";
 
 const links = [
   { to: "/", label: "Home" },

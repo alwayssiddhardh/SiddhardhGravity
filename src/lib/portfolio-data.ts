@@ -1,7 +1,6 @@
 /* eslint-disable prettier/prettier */
-import resumeAsset from "@/assets/resume.pdf.asset.json";
-
-export const RESUME_URL = resumeAsset.url;
+// Resume is bundled as a static file in /public so it works on any static host (Firebase, etc.)
+export const RESUME_URL = "/Siddhardha_Ungarala_Resume.pdf";
 
 export const profile = {
   name: "Siddhardha Ungarala",
