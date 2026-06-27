@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Github, Linkedin, Instagram, Twitter, Globe, Download, FileText } from "lucide-react";
 import { profile, RESUME_URL } from "@/lib/portfolio-data";
 import { Bubbles } from "@/components/bubbles";
+import { ScrambleText } from "@/components/scramble-text";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -32,7 +33,7 @@ function ContactPage() {
       <section className="mx-auto max-w-6xl px-6 py-10">
         <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Say hi</div>
         <h1 className="mt-3 text-5xl md:text-7xl font-bold tracking-tight">
-          Let's <span className="text-rainbow">build</span> something.
+          Let's <ScrambleText as="span" className="text-rainbow" text="build" duration={1500} /> something.
         </h1>
         <p className="mt-4 text-muted-foreground max-w-2xl">
           Got a role, a project, or an experiment? I'm a fast reply away.
