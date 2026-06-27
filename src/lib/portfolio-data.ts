@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import resumeAsset from "@/assets/resume.pdf.asset.json";
 
 export const RESUME_URL = resumeAsset.url;
@@ -45,6 +46,20 @@ export const skills = [
 
 export const experiences = [
   {
+    role: "Web Developer (Full-time Intern)",
+    company: "Plantasy (E-Commerce Startup)",
+    location: "On-site",
+    period: "May 14, 2026 — Present",
+    type: "60-Day Summer Internship",
+    bullets: [
+      "Designed and built a full-stack commerce platform with Razorpay payments.",
+      "Developed a complete website from scratch using Next.js and Tailwind CSS.",
+      "Optimized checkout flow, improving transaction speed and user satisfaction by ~25%.",
+      "Generated mockups and images using AI tools to enhance product presentation and user engagement.",
+    ],
+    tags: ["UI/UX", "Razorpay", "Delhivery", "E-commerce"],
+  },
+  {
     role: "Designer Head (Full-time Intern)",
     company: "Akuro Technologies",
     location: "On-site",
@@ -58,11 +73,11 @@ export const experiences = [
     tags: ["UI/UX", "3D Printing", "IoT", "APIs"],
   },
   {
-    role: "Instructor · Core Team",
+    role: "Blog Writer · Core Team",
     company: "Ghostcoder (College Community)",
     location: "Remote",
     period: "Oct 2024 — Present",
-    type: "Part-time · Contractual",
+    type: "Part-time ",
     bullets: [
       "Authored 50+ blogs on backend development with AI tooling.",
       "Mentored peers on AI, web, and systems concepts to grow community exposure.",
@@ -70,10 +85,21 @@ export const experiences = [
     tags: ["Mentoring", "Technical Writing", "AI"],
   },
   {
+    role: "Zen AI Generative AI Workshop",
+    company: "Ignite Embedded Systems",
+    location: "College Campus",
+    period: "Oct 2025",
+    type: "6-Day Offline Workshop",
+    bullets: [
+      "Hands-on Generative AI curriculum with mentorship from research staff.",
+    ],
+    tags: ["AI", "Research"],
+  },
+  {
     role: "AI / ML Workshop — IISc Bangalore",
     company: "Indian Institute of Science",
     location: "Bengaluru",
-    period: "2024",
+    period: "Oct 2024",
     type: "2-Day Offline Workshop",
     bullets: [
       "Hands-on AI + ML curriculum at IISc with mentorship from research staff.",
@@ -84,31 +110,32 @@ export const experiences = [
     role: "AWS Cloud Computing Workshop",
     company: "AP Skill Development Corporation",
     location: "Andhra Pradesh",
-    period: "Oct 2024",
+    period: "September 2024",
     type: "6-Day Offline",
     bullets: ["End-to-end AWS fundamentals: compute, storage, IAM and deployment."],
     tags: ["AWS", "Cloud"],
   },
+  // {
+  //   role: "Embedded Systems Workshop",
+  //   company: "Ignite Embedded Systems",
+  //   location: "Offline",
+  //   period: "2024",
+  //   type: "6-Day Workshop",
+  //   bullets: ["Hardware-software integration, microcontrollers and firmware basics."],
+  //   tags: ["Embedded", "Hardware"],
+  // },
   {
-    role: "Embedded Systems Workshop",
-    company: "Ignite Embedded Systems",
-    location: "Offline",
-    period: "2024",
-    type: "6-Day Workshop",
-    bullets: ["Hardware-software integration, microcontrollers and firmware basics."],
-    tags: ["Embedded", "Hardware"],
-  },
-  {
-    role: "Brand Representative",
+    role: "Research & Development Intern",
     company: "Inno3Dtech (3D Printing Startup)",
     location: "Multiple Venues",
-    period: "2023 — 2024",
-    type: "Events & Exhibitions",
+    period: "2024 — 2025 September",
+    type: "Full-time ",
     bullets: [
       "Represented the startup at 8+ technical events and exhibitions.",
+      "Developed 3D printing solutions for clients, including custom prototypes and functional parts.",
       "Generated qualified leads; conducted a 3-day offline workshop.",
     ],
-    tags: ["Public Speaking", "3D Printing"],
+    tags: ["Public Speaking", "3D Printing", "Prototyping"],
   },
 ];
 
@@ -129,9 +156,9 @@ export const projects = [
     description:
       "Developed a system for detecting and analyzing satellite images for environmental monitoring and disaster response.",
     tech: ["Python", "TensorFlow", "OpenCV", "YOLOv8", "R-CNN"],
-    date: "2026",
+    date: "2025-2026",
     github: "https://github.com/siddhardhaungarala/Remote-Sensing.git",
-    demo: "https://revibes-clinic.web.app/",
+    demo: "#",
     imagePrompt:
       "satellite view of Earth with glowing neon outlines of detected features like forests, water bodies and urban areas, dark space background, cinematic",
   },
@@ -142,7 +169,7 @@ export const projects = [
     tech: ["PHP", "MySQLi", "JS", "Bootstrap", "HTML5", "CSS"],
     date: "2023",
     github: "https://github.com/siddhardhaungarala/Exam-Cell-Automation.git",
-    demo: "",
+    demo: "#",
     imagePrompt:
       "dashboard UI with charts and data tables glowing in violet and green, dark academic vibe, neon outlines, isometric",
   },
@@ -183,6 +210,7 @@ export const projects = [
 
 export const certifications = [
   "AI/ML Workshop — IISc Bangalore",
+  "Generative AI Workshop — Zen Ai",
   "AWS Cloud Computing — APSSDC",
   "React Essential Training — LinkedIn Learning",
   "IT Essentials — Cisco",
@@ -191,3 +219,5 @@ export const certifications = [
   "Agile with AI — LinkedIn",
   "Power BI — LinkedIn",
 ];
+
+
