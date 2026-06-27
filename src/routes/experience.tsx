@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Briefcase, MapPin, Calendar } from "lucide-react";
 import { experiences, certifications } from "@/lib/portfolio-data";
 import { Bubbles } from "@/components/bubbles";
+import { ScrambleText } from "@/components/scramble-text";
 
 export const Route = createFileRoute("/experience")({
   head: () => ({
@@ -23,7 +24,7 @@ function ExperiencePage() {
       <section className="mx-auto max-w-6xl px-6 py-10">
         <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Journey</div>
         <h1 className="mt-3 text-5xl md:text-7xl font-bold tracking-tight">
-          The <span className="text-rainbow">timeline</span>.
+          The <ScrambleText as="span" className="text-rainbow" text="timeline" duration={1700} />.
         </h1>
         <p className="mt-4 text-muted-foreground max-w-2xl">
           Internships, workshops and community work — every node is a project of its own.

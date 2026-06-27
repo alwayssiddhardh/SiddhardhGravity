@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { skills } from "@/lib/portfolio-data";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { ScrambleText } from "@/components/scramble-text";
 
 export const Route = createFileRoute("/skills")({
   head: () => ({
@@ -113,7 +114,7 @@ function SkillsPage() {
       <section className="mx-auto max-w-6xl px-6 py-10">
         <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Toolbelt</div>
         <h1 ref={titleRef} className="mt-3 text-5xl md:text-7xl font-bold tracking-tight">
-          <span className="text-rainbow">Skills</span> & stack.
+          <ScrambleText as="span" className="text-rainbow" text="Skills" duration={1600} /> & stack.
         </h1>
         <p className="mt-4 text-muted-foreground max-w-2xl">
           Tap any chip to launch a Physics2D particle burst — gravity, velocity and angle,

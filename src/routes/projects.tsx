@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Calendar, ExternalLink, Github } from "lucide-react";
 import { useRef } from "react";
 import { projects } from "@/lib/portfolio-data";
+import { ScrambleText } from "@/components/scramble-text";
 import ecom from "@/assets/proj-ecom.jpg";
 // import hospital from "@/assets/proj-hospital.jpg";
 import remote from "@/assets/proj-remoteSense.jpg";
@@ -56,9 +57,9 @@ function ProjectsPage() {
           transition={{ duration: 0.8, delay: 0.1 }}
           className="mt-4 text-5xl md:text-8xl font-bold tracking-tight"
         >
-          <span className="text-shimmer">Case studies</span>
+          <ScrambleText as="span" className="text-shimmer block" text="Case studies" duration={1800} />
           <span className="block text-foreground/40 text-3xl md:text-5xl mt-2 font-medium">
-            production · AI · full-stack
+            <ScrambleText as="span" text="production · AI · full-stack" duration={1600} />
           </span>
         </motion.h1>
 
